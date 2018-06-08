@@ -1,0 +1,36 @@
+md_step_limit:				1000000
+logfilename:				md_run.log
+init_xyz_filename:			AB.xyz
+new_velocities:				T
+zero_momentum_period:		1000000
+particle_types_num:			2
+groups_num:					4
+	1		A	B	
+	2		A	#	
+	3		B	#	
+	4		#	#	
+all_moving_atoms_group_num:		1
+xyz_moving_atoms_group_num:		1
+z_moving_atoms_group_num:		4
+termo_atoms_group_num:		1
+all_atoms_group_num:		1
+traj_group_num:				3
+period_traj:				200
+change_group_num:			0
+invert_z_vel:				F
+integrators_num:			3
+ name    dt         len     snap     log
+ nvt     0.50000    10000 	500000    1000
+ nve     0.50000    10000 	500000    1000
+ nvms    0.50000    10000 	500000    1000
+ms_de:						1.e-8
+nhc_params:					100.	3	10000.
+initial_temerature:			100.
+interactions_num:			3
+lj  	parameters_LJ_A-B.txt
+2	3	8		7.5		20
+3	2	64		7.5		20
+lj1g	parameters_LJ_A-A.txt
+2	2	64		7.5		20
+lj1g	parameters_LJ_B-B.txt
+3	3	8		7.5		20

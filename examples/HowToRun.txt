@@ -1,0 +1,4 @@
+Linux:
+C:/path/to/run_md_simulation.exe -op 5000 -ipath input_files/ -i settings.txt
+Windows:
+\path\to\run_md_simulation.exe -op 5000 -ipath input_files\ -i settings.txt
