@@ -135,7 +135,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <h3>Просмотр .xyz файлов</h3>
 <p>Для информации о атомах в вычислительной ячейки испльзован формат .xyz (<a href="http://libatoms.github.io/QUIP/io.html#module-ase.io.extxyz">http://libatoms.github.io/QUIP/io.html#module-ase.io.extxyz</a>). Просматривать можно, например, с помощью <a href="https://ovito.org">OVITO</a>.</p>
 <h2>Как компилировать?</h2>
-<p>На Linux запустить скрипт unix_bash_compile.sh в папке code_source. На Windows запустить скрипт windows_compile.cmd в папке code_source.</p>
+<p>На кластере Ломоносов запустить скрипт unix_bash_compile.sh в папке code_source. На Windows запустить скрипт windows_compile.cmd в папке code_source.</p>
 <p>Изменить испльзуемый компилятор, путь к нему, опции компиляции и т. д. можно внутри этих скриптов.</p>
 <p>Исполняемые файлы появятся в папке executables.</p>
 <h2>Как запуситить моделирование?</h2>
@@ -198,7 +198,10 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>Для генерации ячеек написаны отдельные программы (<a href="https://github.com/AlexanderSidorenkov/xyz_create">https://github.com/AlexanderSidorenkov/xyz_create</a>).</p>
 <h4>Файлы с параметрами потенциалов</h4>
 <p>См. описания потенциалов взаимодействия.</p>
-<h3>Выходная информация и файлы</h3>
+<h3>Запуск</h3>
+<p>На Windows запускать программы из командной строки или подготовить .cmd файл. См. в примерах.</p>
+<p>На кластере удобнее всего запускать скриптом оболочки. Например: </p><div class="fragment"><div class="line">#!/bin/bash</div><div class="line">EXEPATH=&#39;/mnt/msu/users/your_path_to/PFMDS/executables/&#39;</div><div class="line">EXE=&#39;run_md_simulation_mpi_gfortran&#39;</div><div class="line">module add gcc</div><div class="line">module add openmpi/1.8.4-gcc</div><div class="line">export I_MPI_PIN=off</div><div class="line"></div><div class="line">prefix=&#39;test_&#39;</div><div class="line">sbatch -o &quot;$prefix&quot;out.txt -e &quot;$prefix&quot;err.txt -p regular4 -t 3-0 -N 48 ompi --bind-to none &quot;$EXEPATH&quot;&quot;$EXE&quot; -p &quot;$prefix&quot; -op 50000 -ipath input_files/ -opath results/ -ilist settings_list.txt &amp;&gt;&quot;$prefix&quot;job_id.txt</div><div class="line"></div><div class="line">module rm gcc</div><div class="line">module rm openmpi/1.8.4-gcc</div></div><!-- fragment --><p> Запускать из папки с папками input_files (там входные файлы) и results (создать пустую для рзультатов). Приведенный скрипт поставит в очередь задачу run_md_simulation_mpi_gfortran на 48 узлов, выходные файлы будут иметь префикс "test_".</p>
+<h3>Выходная информация</h3>
 <p>Информация в основном потоке вывода.</p>
 <p>Лог файл (logfilename).</p>
 <p>Конечные значения энергий в общий файл вывода.</p>

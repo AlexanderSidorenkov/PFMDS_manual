@@ -1,6 +1,6 @@
 md_step_limit:				100000
 logfilename:				md_run.log
-init_xyz_filename:			A.xyz
+init_xyz_filename:			4096A.xyz
 new_velocities:				T
 zero_momentum_period:		1000000
 particle_types_num:			1
@@ -18,10 +18,10 @@ change_group_num:			0
 invert_z_vel:				F
 integrators_num:			1
  name    dt         len     snap     log
- nve     0.10000    200 	500000    10
+ nve     0.50000    1000 	500000   50
 ms_de:						1.e-8
-nhc_params:					300.	3	10000.
-initial_temerature:			300.
+nhc_params:					100.	3	10000.
+initial_temerature:			100.
 interactions_num:			1
 lj1g	parameters_LJ_A-A.txt
-1	1	64		7.0		20
+1	1	75	8.5	100

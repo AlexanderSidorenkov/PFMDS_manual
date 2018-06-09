@@ -142,8 +142,8 @@ Functions/Subroutines</h2></td></tr>
 <tr class="separator:ac3a56fa824e8b1495a18d4b1d1a8fe12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9e62480edf60d2b3d1a123c9da68e1f"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemd__general.html#ac9e62480edf60d2b3d1a123c9da68e1f">check_positions</a> (out_id, atoms, box)</td></tr>
 <tr class="separator:ac9e62480edf60d2b3d1a123c9da68e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd425450c2140a07748c79f0f0dbd760"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemd__general.html#abd425450c2140a07748c79f0f0dbd760">check_velocities</a> (out_id, atoms)</td></tr>
-<tr class="separator:abd425450c2140a07748c79f0f0dbd760"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abce359752315b041ac0ab01491a50fa5"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemd__general.html#abce359752315b041ac0ab01491a50fa5">find_max_velocity</a> (v, atoms)</td></tr>
+<tr class="separator:abce359752315b041ac0ab01491a50fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca48dc12ea3fb99991acd82c2223a9bf"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemd__general.html#aca48dc12ea3fb99991acd82c2223a9bf">invert_z_velocities</a> (atoms, z_low_border, z_high_border)</td></tr>
 <tr class="separator:aca48dc12ea3fb99991acd82c2223a9bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5dc45690a2125a86ce58d01601ebdf45"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemd__general.html#a5dc45690a2125a86ce58d01601ebdf45">position_analysis</a> (av, mi, ma, atoms, group, direction, minimum, maximum)</td></tr>
@@ -488,36 +488,6 @@ Here is the call graph for this function:</div>
 <div class="fragment"><div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keywordtype">type</span>(particles)::   atoms</div><div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="keywordtype">type</span>(simulation_cell):: box</div><div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keywordtype">integer</span>:: out_id,i,k,p</div><div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keywordtype">real</span>:: tolerance=0.0000001</div><div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    </div><div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    <span class="comment">!$OMP PARALLEL private(i,k,p)</span></div><div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    p=0</div><div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="comment">!$OMP DO</span></div><div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    <span class="keywordflow">do</span> i=1,atoms%N</div><div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        <span class="keywordflow">do</span> k=1,3</div><div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;            <span class="keywordflow">if</span>( .not.(atoms%positions(k,i)&gt;(0.-tolerance) .and. atoms%positions(k,i)&lt;(box%box_size(k)+tolerance)) ) <span class="keywordflow">then</span></div><div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;                <span class="keyword">write</span>(out_id,*) i,<span class="stringliteral">&#39; particle out of cell &#39;</span>,atoms%positions(:,i)</div><div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;                p = p+1</div><div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="keywordflow">            endif</span></div><div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="keywordflow">        enddo</span></div><div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="keywordflow">    enddo</span></div><div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    <span class="comment">!$OMP END DO</span></div><div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="comment">!$OMP BARRIER</span></div><div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <span class="keywordflow">if</span>(p&gt;0) stop</div><div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <span class="comment">!$OMP END PARALLEL</span></div><div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    </div></div><!-- fragment -->
 </div>
 </div>
-<a id="abd425450c2140a07748c79f0f0dbd760"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd425450c2140a07748c79f0f0dbd760">&#9670;&nbsp;</a></span>check_velocities()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">subroutine md_general::check_velocities </td>
-          <td>(</td>
-          <td class="paramtype">integer&#160;</td>
-          <td class="paramname"><em>out_id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">type(<a class="el" href="structmd__general_1_1particles.html">particles</a>)&#160;</td>
-          <td class="paramname"><em>atoms</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="md__general_8f90_source.html#l00351">351</a> of file <a class="el" href="md__general_8f90_source.html">md_general.f90</a>.</p>
-<div class="fragment"><div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    <span class="keywordtype">type</span>(particles)::   atoms</div><div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <span class="keywordtype">integer</span>:: out_id,i</div><div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    <span class="keywordtype">real</span>:: maxvel2,v2</div><div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;</div><div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    maxvel2 = -1.   </div><div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    <span class="comment">!$OMP PARALLEL DO private(i,v2) REDUCTION(max:maxvel2)</span></div><div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    <span class="keywordflow">do</span> i=1,atoms%N</div><div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        v2 = sum(atoms%velocities(:,i)**2)</div><div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        <span class="keywordflow">if</span>(maxvel2&lt;v2) maxvel2 = v2</div><div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="keywordflow">    enddo</span></div><div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    <span class="comment">!$OMP END PARALLEL DO</span></div><div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    <span class="keyword">write</span>(out_id,<span class="stringliteral">&#39;(A,f16.8,A)&#39;</span>) <span class="stringliteral">&#39; max velocity: &#39;</span>,sqrt(maxvel2),<span class="stringliteral">&#39; A/fs &#39;</span></div><div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    </div></div><!-- fragment -->
-</div>
-</div>
 <a id="a6e847bdd3b7115bf5ff69e8cd8e68d7f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6e847bdd3b7115bf5ff69e8cd8e68d7f">&#9670;&nbsp;</a></span>create_particle_group()</h2>
 
@@ -599,7 +569,37 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="md__general_8f90_source.html#l00408">408</a> of file <a class="el" href="md__general_8f90_source.html">md_general.f90</a>.</p>
-<div class="fragment"><div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    <span class="keywordtype">type</span>(simulation_cell), <span class="keywordtype">intent (in)</span> :: box</div><div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    <span class="keywordtype">real</span>, <span class="keywordtype">intent (in)</span> :: vec1(3),vec2(3)</div><div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    <span class="keywordtype">real</span>, <span class="keywordtype">intent (out)</span> :: dr(3),dr2</div><div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;</div><div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    dr(1) = vec2(1)-vec1(1)</div><div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;    dr(2) = vec2(2)-vec1(2)</div><div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    dr(3) = vec2(3)-vec1(3)</div><div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    dr(1) = dr(1)-box%half_box_size(1)*(sign(1.,dr(1)-box%half_box_size(1))+sign(1.,dr(1)+box%half_box_size(1)))</div><div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    dr(2) = dr(2)-box%half_box_size(2)*(sign(1.,dr(2)-box%half_box_size(2))+sign(1.,dr(2)+box%half_box_size(2)))</div><div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    dr(3) = dr(3)-box%half_box_size(3)*(sign(1.,dr(3)-box%half_box_size(3))+sign(1.,dr(3)+box%half_box_size(3)))</div><div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    dr2 = dr(1)*dr(1)+dr(2)*dr(2)+dr(3)*dr(3)</div><div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    </div><div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    <span class="keywordflow">return</span></div></div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    <span class="keywordtype">type</span>(simulation_cell), <span class="keywordtype">intent (in)</span> :: box</div><div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    <span class="keywordtype">real</span>, <span class="keywordtype">intent (in)</span> :: vec1(3),vec2(3)</div><div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    <span class="keywordtype">real</span>, <span class="keywordtype">intent (out)</span> :: dr(3),dr2</div><div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;</div><div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    dr(1) = vec2(1)-vec1(1)</div><div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;    dr(2) = vec2(2)-vec1(2)</div><div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    dr(3) = vec2(3)-vec1(3)</div><div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <span class="comment">!this part consumes a lot of time (approx. 50% of neighbour search and distance)</span></div><div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    <span class="comment">!replace with vectorizable function?</span></div><div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    <span class="comment">!replace with no pbc function?</span></div><div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    dr(1) = dr(1)-box%half_box_size(1)*(sign(1.,dr(1)-box%half_box_size(1))+sign(1.,dr(1)+box%half_box_size(1)))</div><div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    dr(2) = dr(2)-box%half_box_size(2)*(sign(1.,dr(2)-box%half_box_size(2))+sign(1.,dr(2)+box%half_box_size(2)))</div><div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    dr(3) = dr(3)-box%half_box_size(3)*(sign(1.,dr(3)-box%half_box_size(3))+sign(1.,dr(3)+box%half_box_size(3)))</div><div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    <span class="comment">!</span></div><div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    dr2 = dr(1)*dr(1)+dr(2)*dr(2)+dr(3)*dr(3)</div><div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    </div><div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    <span class="keywordflow">return</span></div></div><!-- fragment -->
+</div>
+</div>
+<a id="abce359752315b041ac0ab01491a50fa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abce359752315b041ac0ab01491a50fa5">&#9670;&nbsp;</a></span>find_max_velocity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine md_general::find_max_velocity </td>
+          <td>(</td>
+          <td class="paramtype">real&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(<a class="el" href="structmd__general_1_1particles.html">particles</a>)&#160;</td>
+          <td class="paramname"><em>atoms</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="md__general_8f90_source.html#l00351">351</a> of file <a class="el" href="md__general_8f90_source.html">md_general.f90</a>.</p>
+<div class="fragment"><div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    <span class="keywordtype">type</span>(particles)::   atoms</div><div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <span class="keywordtype">integer</span>:: i</div><div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    <span class="keywordtype">real</span>:: maxvel2,v2,v</div><div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;</div><div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    maxvel2 = -1.   </div><div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    <span class="comment">!$OMP PARALLEL DO private(i,v2) REDUCTION(max:maxvel2)</span></div><div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    <span class="keywordflow">do</span> i=1,atoms%N</div><div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        v2 = sum(atoms%velocities(:,i)**2)</div><div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        <span class="keywordflow">if</span>(maxvel2&lt;v2) maxvel2 = v2</div><div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="keywordflow">    enddo</span></div><div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    <span class="comment">!$OMP END PARALLEL DO</span></div><div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    v = sqrt(maxvel2)</div><div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    </div></div><!-- fragment -->
 </div>
 </div>
 <a id="a3a69c40fe5a6e7938d398f803b21e474"></a>

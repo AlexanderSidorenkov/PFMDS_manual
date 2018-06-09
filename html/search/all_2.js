@@ -20,7 +20,6 @@ var searchData=
   ['calculate_5ftruncated_5fnl',['calculate_truncated_nl',['../namespacemd__interactions.html#abc7ac3a3b1e9382804836d43cdc9a224',1,'md_interactions']]],
   ['change_5fparticle_5fgroup_5fn',['change_particle_group_n',['../namespacemd__general.html#a5614c27d83ed003aa01d3be2f1b45c57',1,'md_general']]],
   ['check_5fpositions',['check_positions',['../namespacemd__general.html#ac9e62480edf60d2b3d1a123c9da68e1f',1,'md_general']]],
-  ['check_5fvelocities',['check_velocities',['../namespacemd__general.html#abd425450c2140a07748c79f0f0dbd760',1,'md_general']]],
   ['converce_5fneighbour_5flist',['converce_neighbour_list',['../namespacemd__neighbours.html#a3f6d619145cba9b77814f398056c243f',1,'md_neighbours']]],
   ['create_5fgroups',['create_groups',['../namespacemd__interactions.html#a52c7d3a0c8df2f15b75c8fef73ee795d',1,'md_interactions']]],
   ['create_5finteractions',['create_interactions',['../namespacemd__interactions.html#ad655aab8b55d15d13e66769ae95ca229',1,'md_interactions']]],
